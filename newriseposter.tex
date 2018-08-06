@@ -1,0 +1,224 @@
+
+\documentclass[a0]{a0poster}
+\usepackage[export]{adjustbox}
+
+\input defs
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand{\QED}{~~\rule[-1pt]{8pt}{8pt}}\def\qed{\QED}
+
+\renewcommand{\reals}{{\mbox{\bf R}}}
+
+\usepackage[absolute]{textpos}
+
+\usepackage{fleqn,psfrag,wrapfig,tikz}
+
+\usepackage[papersize={42in,36in}]{geometry}
+
+\usepackage{graphics}
+\usepackage{graphicx}
+
+
+\usepackage{color}
+\definecolor{Red}{rgb}{0.9,0.0,0.1}
+
+\definecolor{bluegray}{rgb}{0.15,0.20,0.40}
+\definecolor{bluegraylight}{rgb}{0.35,0.40,0.60}
+\definecolor{gray}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgray}{rgb}{0.7,0.7,0.7}
+\definecolor{darkblue}{rgb}{0.2,0.2,1.0}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.3}
+
+\renewcommand{\labelitemi}{\textcolor{bluegray}\textbullet}
+\renewcommand{\labelitemii}{\textcolor{Red}{--}}
+
+\setlength{\labelsep}{0.5em}
+
+
+
+\let\Textsize\normalsize
+
+\def\Head#1{\noindent{\LARGE\color{black} #1}\bigskip}
+\def\LHead#1{\noindent{\LARGE\color{Red} #1}\bigskip}
+\def\Subhead#1{\noindent{\large\color{Red} #1}\bigskip}
+\def\Title#1{\noindent{\VeryHuge\color{black} #1}}
+
+\TPGrid[40mm,40mm]{23}{18}      % 1 col of width 7, one of width 15,
+                                % plus gap of width 1
+
+\parindent=0pt
+\parskip=0.2\baselineskip
+
+\begin{document}
+
+\begin{textblock}{2}(-0.6,0.2)
+  \includegraphics[width=1.2\textwidth]{/users/Alex/Desktop/obsoletemat/engineeringlogo}
+\end{textblock}
+
+
+\begin{textblock}{23}(0,0)
+\begin{center}
+
+  \Title{Data Mining to Discover Hundreds of New Phase-Change Materials}
+  \vspace{0.1in}
+
+  {\Large Alex Anaya, Cameron Jones, Daniel Rehn$^*$, Evan
+    Reed$^{\dag}$}
+
+  $\;\;^*$ RISE mentor $\;\;^{\dag}$ Group PI
+\end{center}
+\author{Evan Reed}
+\end{textblock}
+
+% Uni logo in the top right corner. A&A in the bottom left. Gives a
+% good visual balance, but you may want to change this depending upon
+% the graphics that are in your poster.
+%% \begin{textblock}{2}(0,10)
+%% Your logo here
+%% \includegraphics{/user...}
+%% \end{textblock}
+
+\begin{textblock}{2}(21.5,-0.15)
+\includegraphics[width=1.1\textwidth]{/users/Alex/Desktop/obsoletemat/stanfordlogo}
+\end{textblock}
+
+\begin{center}
+%\includegraphics[width=1.1\textwidth]{/users/Alex/Desktop/obsoletemat/engineeringlogo}
+\end{center}
+
+\begin{textblock}{7.0}(0,1.6)
+\hrule\medskip
+\Head{Introduction}
+\vspace{-0.1in}
+\begin{itemize}
+\item Technologies of today and tomorrow depend on ways to store
+  information reliably and quickly
+\item Despite improvements in data storage technology, fundamentally new
+  materials are needed
+
+  \begin{figure}[!ht]\centering
+    \includegraphics[width=0.9\textwidth]{/users/Alex/Desktop/obsoletemat/datastorageimage}
+  \end{figure}
+
+\item Phase change materials are pairs or groups of materials which have the same chemical formula,
+  but different structures and properties. The most common example is diamond and coal, both are made completely of carbon
+\item Reed group has undergone a large data mining operation to uncover as
+  many prospective, two dimensional phase change materials as possible
+\item Although Materials Project, a free to access website, contained documentation of
+  these materials, filtering en masse had never been attempted
+\item We created an algorithm to compile all of the materials in the Materials Project
+  Database, filter through them, and generate a list
+\item mono and few layer materials provide great promise for the future of data storing devices
+  and will most likely outperform current devices.
+\item Our list serves as an easy way to identify phase change materials, in an effort to
+  expedite the process of researching these materials.
+\end{itemize}
+
+\medskip
+\hrule\medskip
+\Head{Background}
+\vspace{-0.1in}
+\begin{itemize}
+\item Phase-change materials can be understood in terms of
+  their crystal structure
+\item Crystals can be defined by a \textbf{unit cell}: a
+  three-dimensional box that, when stacked repeatedly in all
+  directions, forms a solid
+\item Structural and chemical properties of solids can be investigated
+  in Density Functional Theory (DFT) codes by setting up a unit cell
+  and using \emph{periodic boundary conditions}
+
+  \begin{figure}[!ht]\centering
+    \includegraphics[width=0.45\textwidth]{/users/Alex/Desktop/obsoletemat/structurediagram}
+    \caption{\small Unit cell of Na$_4$Cl$_{4}$, also known as rock salt.}
+  \end{figure}
+
+\item Our algorithm searched almost 84000 DFT-computed materials to
+ filter for phase-changing materials
+
+\end{itemize}
+
+\medskip
+\hrule\medskip
+\Head{POSCAR}
+\vspace{-0.3in}
+\begin{itemize}
+\item VASP is a DFT code that uses a POSCAR file to define the unit cell
+\end{itemize}
+
+\begin{figure}[!ht]\centering
+  \includegraphics[width=0.85\textwidth]{/users/Alex/Desktop/obsoletemat/poscar}
+\end{figure}
+
+\end{textblock}
+
+%-------------------- Second Block --------------%
+\begin{textblock}{15.0}(8,1.6)
+\hrule\medskip
+\Head{Algorithm}
+
+The algorithm which we created is written in the python language and utilizes
+various other extensions such as pymatgen, an open source python library for materials analysis,
+to query the Materials project database for a desired set of characteristics, sort by various
+criteria, such as band gap and chemical formula, then generate a list.
+
+\begin{figure}[!ht]\centering
+  \includegraphics[width=0.8\textwidth]{/users/Alex/Desktop/obsoletemat/codesnipet}
+\end{figure}
+
+\medskip
+\hrule\medskip
+\Head{Results}
+
+\begin{figure}
+  \includegraphics[width=0.4\textwidth]{/users/Alex/Desktop/obsoletemat/picset1}
+  \includegraphics[width=0.5\textwidth]{/users/Alex/Desktop/obsoletemat/picset2}
+  \label{fig:black}
+\end{figure}
+
+
+\begin{description}
+\item[Left] A structural diagram of V3O7 one of the possible phase change materials
+\item[Right] A structural diagram of Ca3Al2O6 one of the possible phase change materials
+
+
+\end{description}
+
+\medskip
+\hrule\medskip
+\Head{Conclusion}
+
+We have developed an algorithm for parsing through the entirety of the Materials Project
+database by selecting certain criteria to filter the database by, in an effort to identify
+possible phase change for applications in data storage.
+
+\medskip
+\medskip
+\hrule\medskip
+\Head{Acknowledgements}
+
+We thank the RISE program councelor, Maiken Bruhis, for her hard work
+and dedication to the program. We also wish to thank other members of
+the Reed group who have been supportive in our work. We also wish to
+thank the Genentech Foundation for supporting our work here this summer.
+
+%\hrule\medskip
+\Head{References}
+
+\small
+
+[1] A. Jain, S.P. Ong, G. Hautier, W. Chen, W.D. Richards, S. Dacek, S. Cholia, D. Gunter, D. Skinner, G. Ceder, K.A. Persson, The Materials Project: A Materials Genome Approach to Accelerating Materials Innovation. APL Materials, doi:10.1063/1.4812323 (2013)
+
+[2] Zimmermann, N. E., Horton, M. K., Jain, A., & Haranczyk, M. (2017). Assessing local structure motifs using order parameters for motif recognition, interstitial identification, and diffusion path characterization. Frontiers in Materials, 4, 34.
+
+\includegraphics[width=5in,right]{/Users/Alex/Desktop/obsoletemat/genentech}
+
+\end{textblock}
+
+
+
+
+
+
+\end{document}
